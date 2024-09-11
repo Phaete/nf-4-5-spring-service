@@ -20,8 +20,9 @@ class ZooAnimalServiceTest {
     void findAllAnimals() {
         ZooAnimal zooAnimal = new ZooAnimal("1", "Lion", 5, new BigDecimal("200.00"));
         when(zooAnimalRepository.findAll()).thenReturn(List.of(zooAnimal));
-        assertEquals(List.of(zooAnimal), zooAnimalService.findAllAnimals());
+        List<ZooAnimal> actual = zooAnimalService.findAllAnimals();
         verify(zooAnimalRepository).findAll();
+        assertEquals(List.of(zooAnimal), actual);
     }
 
 
@@ -29,8 +30,9 @@ class ZooAnimalServiceTest {
     void findAnimalById() {
         ZooAnimal expected = new ZooAnimal("1", "Lion", 5, new BigDecimal("200.00"));
         when(zooAnimalRepository.findById("1")).thenReturn(Optional.of(expected));
-        assertEquals(expected, zooAnimalService.findAnimalById("1"));
+        ZooAnimal actual = zooAnimalService.findAnimalById("1");
         verify(zooAnimalRepository).findById("1");
+        assertEquals(expected, actual);
     }
 
     @Test

@@ -16,15 +16,14 @@ public class ZooAnimalController {
     }
 
     @GetMapping()
-    public List<DTOZooAnimal> getAnimals(){
-        return zooAnimalService.getAnimals().stream()
+    public List<DTOZooAnimal> findAllAnimals(){
+        return zooAnimalService.findAllAnimals().stream()
                 .map(zooAnimal -> new DTOZooAnimal(zooAnimal.id(), zooAnimal.name(), zooAnimal.age()))
                 .toList();
     }
 
     @PostMapping()
-    public DTOZooAnimal createAnimal(@RequestBody ZooAnimal zooAnimal){
-        ZooAnimal createdZooAnimal = zooAnimalService.createAnimal(zooAnimal);
-        return new DTOZooAnimal(createdZooAnimal.id(), createdZooAnimal.name(), createdZooAnimal.age());
+    public ZooAnimal createAnimal(@RequestBody ZooAnimal zooAnimal){
+        return zooAnimalService.createAnimal(new DTOZooAnimal(zooAnimal.id(), zooAnimal.name(), zooAnimal.age()));
     }
 }
